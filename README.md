@@ -7,7 +7,7 @@ df = pd.read_csv('data (2).csv')
 nodes = []
 edges = []
 
-# Sadece Semtleri ve Evleri düğüm olarak ekliyoruz (Şehirleri sildik)
+
 for locality in df['locality'].unique():
     nodes.append({'Id': locality, 'Label': locality, 'Type': 'Locality'})
 
@@ -16,10 +16,7 @@ for idx, row in df.iterrows():
     # Ev düğümü
     nodes.append({'Id': house_id, 'Label': row['house_type'], 'Type': 'Property', 'City': row['city']})
     
-    # SADECE Ev -> Semt bağlantısı kuruyoruz. 
-    # Semt -> Şehir bağlantısını sildiğimiz için gruplar arası köprüler kalkar.
-    edges.append({'Source': house_id, 'Target': row['locality'], 'Type': 'Undirected'})
-
+   
 pd.DataFrame(nodes).to_csv('gephi_nodes_v2.csv', index=False)
 pd.DataFrame(edges).to_csv('gephi_edges_v2.csv', index=False)
 
